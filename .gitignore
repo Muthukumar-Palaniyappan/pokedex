@@ -1,0 +1,8 @@
+src/.vs/
+src/Pokedex/Pokedex.Api.xml
+src/Pokedex/Pokedex.xml
+src/Pokedex/Pokedex.Api.csproj.user
+src/Pokedex.Contract/bin/
+src/Pokedex.Contract/obj/
+src/Pokedex/bin/
+src/Pokedex/obj/

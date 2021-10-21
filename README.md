@@ -1,2 +1,2 @@
 # pokedex
-Fun Pokemon Servicee
+Fun Pokemon service
