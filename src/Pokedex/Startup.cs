@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Serilog;
+using Pokedex.Api.Application.Middlewares;
 
 namespace Pokedex
 {
@@ -65,12 +66,9 @@ namespace Pokedex
             app.UseStaticFiles();
 
             app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
             app.UseSwagger();
             app.UseSwaggerUI(options => { options.SwaggerEndpoint("v1/swagger.json", _apiTitle); });
+            app.UseMiddleware<ApplicationExceptionMiddleware>();
             app.UseSerilogRequestLogging();
             app.UseEndpoints(endpoints =>
             {

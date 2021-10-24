@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Pokedex.Api.Application.Clients;
 using Pokedex.Contract;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace Pokedex.Api.Controllers
@@ -28,7 +29,8 @@ namespace Pokedex.Api.Controllers
         [ProducesResponseType(typeof(ActionResult), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Pokemon>> GetPokemon([FromRoute]string Name)
         {
-            await Task.Delay(10);
+            if (string.IsNullOrEmpty(Name))
+                throw new ValidationException("Name shouldn't be empty."); //TODO: RequestObject and implemention of fluent validation. 
             _pokeApiClient.GetPokemon(Name);
             return Ok(new Pokemon());
         }
