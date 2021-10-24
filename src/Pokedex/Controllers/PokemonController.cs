@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pokedex.Api.Application.Clients;
 using Pokedex.Contract;
 using System.Threading.Tasks;
 
@@ -9,8 +10,11 @@ namespace Pokedex.Api.Controllers
     [Route("[controller]")]
     public class PokemonController : ControllerBase
     {
-        public PokemonController()
-        { }
+        private readonly IPokeApiClient _pokeApiClient;
+        public PokemonController(IPokeApiClient pokeApiClient)
+        {
+            _pokeApiClient =  pokeApiClient;
+        }
 
         /// <summary>
         /// GetPokemon by Name. 
@@ -25,6 +29,7 @@ namespace Pokedex.Api.Controllers
         public async Task<ActionResult<Pokemon>> GetPokemon([FromRoute]string Name)
         {
             await Task.Delay(10);
+            _pokeApiClient.GetPokemon(Name);
             return Ok(new Pokemon());
         }
     }

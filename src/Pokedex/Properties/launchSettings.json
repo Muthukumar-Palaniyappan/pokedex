@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50438",
-      "sslPort": 0
+      "applicationUrl": "http://localhost:7987",
+      "sslPort": 44310
     }
   },
   "profiles": {
@@ -18,7 +18,7 @@
     "Pokedex": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5000",
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
