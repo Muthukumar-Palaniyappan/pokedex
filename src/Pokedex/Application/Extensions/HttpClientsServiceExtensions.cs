@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pokedex.Api.Application.Clients;
+using Pokedex.Api.Application.Middlewares;
 using Pokedex.Api.Application.Options;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace Pokedex.Api.Application.Extensions
         public static void ConfigureDependencies(this IServiceCollection services)
         {
             services.AddScoped<IPokeApiClient, PokeApiClient>();
+            services.AddSingleton<IExceptionHandler, PokeApiExceptionhandler>();
+
         }
 
         //public static IServiceCollection RegisterHttpClients(this IServiceCollection services)

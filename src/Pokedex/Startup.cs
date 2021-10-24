@@ -11,6 +11,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Serilog;
 
 namespace Pokedex
 {
@@ -70,7 +71,7 @@ namespace Pokedex
             });
             app.UseSwagger();
             app.UseSwaggerUI(options => { options.SwaggerEndpoint("v1/swagger.json", _apiTitle); });
-
+            app.UseSerilogRequestLogging();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

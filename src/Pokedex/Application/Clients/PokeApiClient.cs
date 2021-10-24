@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using Pokedex.Api.Application.Clients.Models;
-using Pokedex.Api.Application.CustomExceptions;
 using Pokedex.Api.Application.Options;
 using System;
 using System.Net.Http;
 using System.Text.Json;
-using System.Web;
 
 namespace Pokedex.Api.Application.Clients
 {

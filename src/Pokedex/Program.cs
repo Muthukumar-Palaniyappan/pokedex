@@ -1,14 +1,12 @@
+using Destructurama;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Pokedex.Api.Application.Extensions;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Pokedex
 {
@@ -25,6 +23,14 @@ namespace Pokedex
                 {
                     webBuilder.UseStartup<Startup>();
                 })
+              .ConfigureLogging((context, logging) =>
+              {
+                  Log.Logger = new LoggerConfiguration()
+                               .ReadFrom.Configuration(context.Configuration)
+                               .Destructure.UsingAttributes()
+                               .CreateLogger();
+                  logging.AddSerilog();
+              })
             .ConfigureAppConfiguration((context, configurationBuilder) =>
             {
                 configurationBuilder
@@ -33,6 +39,7 @@ namespace Pokedex
                     .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true)
                     .AddEnvironmentVariables();
             })
+            .UseSerilog()
             .ConfigureServices(AddServices);
 
         private static void AddServices(HostBuilderContext hostContext, IServiceCollection services)
