@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pokedex.Api.Application.Clients;
+using Pokedex.Api.Application.Services;
 using Pokedex.Contract;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -11,10 +12,10 @@ namespace Pokedex.Api.Controllers
     [Route("[controller]")]
     public class PokemonController : ControllerBase
     {
-        private readonly IPokeApiClient _pokeApiClient;
-        public PokemonController(IPokeApiClient pokeApiClient)
+        private readonly IPokemonService _pokeApiService;
+        public PokemonController(IPokemonService pokeApiService)
         {
-            _pokeApiClient =  pokeApiClient;
+            _pokeApiService = pokeApiService;
         }
 
         /// <summary>
@@ -31,8 +32,8 @@ namespace Pokedex.Api.Controllers
         {
             if (string.IsNullOrEmpty(Name))
                 throw new ValidationException("Name shouldn't be empty."); //TODO: RequestObject and implemention of fluent validation. 
-            _pokeApiClient.GetPokemon(Name);
-            return Ok(new Pokemon());
+            var o =  _pokeApiService.GetPokemon(Name);
+            return o;
         }
     }
 }

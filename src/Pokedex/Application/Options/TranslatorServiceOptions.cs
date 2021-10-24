@@ -2,7 +2,7 @@
 
 namespace Pokedex.Api.Application.Options
 {
-    public class ShakespeareTransalatorServiceOptions
+    public class TranslatorServiceOptions
     {
         public Uri BaseUri { get; set; }
     }

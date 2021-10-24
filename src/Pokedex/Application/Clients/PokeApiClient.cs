@@ -23,12 +23,12 @@ namespace Pokedex.Api.Application.Clients
             _logger = logger;
         }
 
-        public PokemonResponse GetPokemon(string name)
+        public PokemonResponse GetPokemon(string Name)
         {
-            _logger.LogInformation("Fetching Pokemon {@name}.", name);
+            _logger.LogInformation("Fetching Pokemon {@name}.", Name);
             var client = _clientFactory.CreateClient();
             client.BaseAddress = _pokeApiServiceOptions.BaseUri;
-            var response = client.GetAsync($"/api/v2/pokemon-species/{name}").Result;
+            var response = client.GetAsync($"/api/v2/pokemon-species/{Name}").Result;
             if (response.IsSuccessStatusCode)
             {
                 using var responseStream =  response.Content.ReadAsStreamAsync().Result;
@@ -36,7 +36,7 @@ namespace Pokedex.Api.Application.Clients
                     <PokemonResponse>(responseStream).Result;
             }
             if (response.StatusCode == HttpStatusCode.NotFound)
-                throw new ResourceNotFoundException($"Pokemon {@name} is not found.");
+                throw new ResourceNotFoundException($"Pokemon {@Name} is not found.");
             var errorMessage = response.Content.ReadAsStringAsync().Result;
             throw new Exception(errorMessage);
         }

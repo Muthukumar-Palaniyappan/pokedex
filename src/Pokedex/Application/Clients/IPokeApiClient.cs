@@ -4,6 +4,6 @@ namespace Pokedex.Api.Application.Clients
 {
     public interface IPokeApiClient
     {
-        public PokemonResponse  GetPokemon(string name);
+        public PokemonResponse  GetPokemon(string Name);
     }
 }

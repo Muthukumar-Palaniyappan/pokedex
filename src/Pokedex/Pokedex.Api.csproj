@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="3.1.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Ben.Demystifier" Version="0.4.1" />
     <PackageReference Include="Destructurama.Attributed" Version="3.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
@@ -25,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Pokedex.Contract\Pokedex.Contract.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\Services\" />
   </ItemGroup>
 
 </Project>
