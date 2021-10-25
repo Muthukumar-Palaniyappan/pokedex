@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Pokedex.Api.Application.Clients;
+using Pokedex.Api.Application.Clients.PokeApi;
+using Pokedex.Api.Application.Clients.Translator;
 using Pokedex.Api.Application.Middlewares;
 using Pokedex.Api.Application.Options;
 using Pokedex.Api.Application.Services;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pokedex.Api.Application.Clients.Models
+namespace Pokedex.Api.Application.Clients.PokeApi.Models
 {
     public class PokemonResponse
     {

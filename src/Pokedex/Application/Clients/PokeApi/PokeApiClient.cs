@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Pokedex.Api.Application.Clients.Models;
+using Pokedex.Api.Application.Clients.PokeApi.Models;
 using Pokedex.Api.Application.Exceptions;
 using Pokedex.Api.Application.Options;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
 
-namespace Pokedex.Api.Application.Clients
+namespace Pokedex.Api.Application.Clients.PokeApi
 {
     public class PokeApiClient:IPokeApiClient
     {
@@ -23,7 +23,7 @@ namespace Pokedex.Api.Application.Clients
             _logger = logger;
         }
 
-        public PokemonResponse GetPokemon(string Name)
+        public async Task<PokemonResponse> GetPokemonAsync(string Name)
         {
             _logger.LogInformation("Fetching Pokemon {@name}.", Name);
             var client = _clientFactory.CreateClient();
@@ -31,9 +31,11 @@ namespace Pokedex.Api.Application.Clients
             var response = client.GetAsync($"/api/v2/pokemon-species/{Name}").Result;
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream =  response.Content.ReadAsStreamAsync().Result;
-                return  JsonSerializer.DeserializeAsync
-                    <PokemonResponse>(responseStream).Result;
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                var pokemonResponse =  await JsonSerializer.DeserializeAsync
+                    <PokemonResponse>(responseStream);
+                _logger.LogInformation("Pokemon retrieved : {@pokemon}", pokemonResponse);
+                return pokemonResponse;
             }
             if (response.StatusCode == HttpStatusCode.NotFound)
                 throw new ResourceNotFoundException($"Pokemon {@Name} is not found.");

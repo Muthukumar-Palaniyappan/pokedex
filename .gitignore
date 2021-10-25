@@ -6,3 +6,5 @@ src/Pokedex.Contract/bin/
 src/Pokedex.Contract/obj/
 src/Pokedex/bin/
 src/Pokedex/obj/
+src/Pokedex.Api.UnitTests/bin/
+src/Pokedex.Api.UnitTests/obj/

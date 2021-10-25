@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Pokedex.Api.Application.Clients.Models;
+using Pokedex.Api.Application.Clients.PokeApi.Models;
 using Pokedex.Contract;
 using System;
 using System.Collections.Generic;

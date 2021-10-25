@@ -1,4 +1,4 @@
-﻿namespace Pokedex.Api.Application.Clients.Models
+﻿namespace Pokedex.Api.Application.Clients.PokeApi.Models
 {
     public class Language
     {
