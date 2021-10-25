@@ -34,26 +34,10 @@ namespace Pokedex.Api.Application.Clients.Translator
             var translationUrl = translationType == TranslationType.Yoda ? "yoda" :
             translationType == TranslationType.Shakespeare ? "shakespeare" :
             throw new DomainException("Translation requested without translation type");
-
-
+            
             var client = _clientFactory.CreateClient();
             client.BaseAddress = _translatorServiceOptions.BaseUri;
-            //var requestBody = JsonConvert.SerializeObject(new
-            //{
-            //    Data = new
-            //    {
-            //        Text = Text
-            //    }
-            //}, _jsonSerializerSettings);
-            //var request = new HttpRequestMessage(HttpMethod.Post, $"translate/yoda")
-            //{
-            //    Content = new StringContent(requestBody)
-            //};
-            //request.Content.Headers.ContentType = new MediaTypeHeaderValue(_mediaType);
-            //var response = await client.SendAsync(request);
-
             string url = GetRequestURL(Text, translationUrl, _translatorServiceOptions.BaseUri.AbsoluteUri);
-
             var response = await client.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -69,8 +53,6 @@ namespace Pokedex.Api.Application.Clients.Translator
 
         private static string GetRequestURL(string Text, string translationUrl, string baseUri)
         {
-            var url = Uri.EscapeUriString(Text);
-            var url2 = HttpUtility.UrlPathEncode(Text);
             var builder = new UriBuilder($"{baseUri}translate/{translationUrl}.json?text={HttpUtility.UrlPathEncode(Text)}");
             var query = HttpUtility.ParseQueryString(builder.Query);
             query[TranslationQueryParmName] = Uri.EscapeUriString(Text);
