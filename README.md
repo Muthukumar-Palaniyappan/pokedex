@@ -15,5 +15,7 @@
 2. Mediator pattern and RequestValidation via Fluentvalidation
 3. Docker file could be improved to expose 2 port mappings to do HTTPS. 
 4. Caching 
+5. Pipelines to deploy different environments 
+6. Container orchestration using Kubernetes for prod
 
 
