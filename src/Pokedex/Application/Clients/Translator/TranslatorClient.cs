@@ -3,12 +3,9 @@ using Microsoft.Extensions.Options;
 using Pokedex.Api.Application.Clients.Translator.Models;
 using Pokedex.Api.Application.Exceptions;
 using Pokedex.Api.Application.Options;
-using System;
-using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Pokedex.Api.Application.Clients.Translator
 {
@@ -17,8 +14,6 @@ namespace Pokedex.Api.Application.Clients.Translator
         private readonly IHttpClientFactory _clientFactory;
         private readonly TranslatorServiceOptions _translatorServiceOptions;
         private readonly ILogger<TranslatorClient> _logger;
-        private const string TranslationQueryParmName = "text";
-
 
         public TranslatorClient(IHttpClientFactory clientFactory, IOptions<TranslatorServiceOptions> translatorServiceOptions, ILogger<TranslatorClient> logger)
         {
@@ -26,7 +21,6 @@ namespace Pokedex.Api.Application.Clients.Translator
             _translatorServiceOptions = translatorServiceOptions.Value;
             _logger = logger;
         }
-
       
         public async Task<string> GetTranslationAsync(string Text, TranslationType translationType)
         {
@@ -34,12 +28,10 @@ namespace Pokedex.Api.Application.Clients.Translator
             var translationUrl = translationType == TranslationType.Yoda ? "yoda" :
             translationType == TranslationType.Shakespeare ? "shakespeare" :
             throw new DomainException("Translation requested without translation type");
-            
+
             var client = _clientFactory.CreateClient();
             client.BaseAddress = _translatorServiceOptions.BaseUri;
-            string url = GetRequestURL(Text, translationUrl, _translatorServiceOptions.BaseUri.AbsoluteUri);
-            var response = await client.GetAsync(url);
-
+            var response = await client.PostAsJsonAsync($"translate/{translationUrl}.json",new { text = Text });
             if (response.IsSuccessStatusCode)
             {
                 using var responseStream = await response.Content.ReadAsStreamAsync();
@@ -49,15 +41,6 @@ namespace Pokedex.Api.Application.Clients.Translator
                 return translatedResponse.contents.translated;
             }
             return Text;
-        }
-
-        private static string GetRequestURL(string Text, string translationUrl, string baseUri)
-        {
-            var builder = new UriBuilder($"{baseUri}translate/{translationUrl}.json?text={HttpUtility.UrlPathEncode(Text)}");
-            var query = HttpUtility.ParseQueryString(builder.Query);
-            query[TranslationQueryParmName] = Uri.EscapeUriString(Text);
-            builder.Query = query.ToString();
-            return  builder.ToString();
         }
     }
 }

@@ -45,6 +45,37 @@ namespace Pokedex.Api.UnitTests.Application.Services
             result.Habitat.Should().Be("rare");
         }
 
+        [Fact]
+        public async Task ReturnsYodaTranslatedPokemon_WhenGetPokemonRequest_IsLegendary()
+        {
+            //Arrange
+            var apiResponseObj = GetValidPokemonResponse();
+            apiResponseObj.is_legendary = true;
+            _pokeApiClientMock.Setup(x => x.GetPokemonAsync("test")).ReturnsAsync(apiResponseObj);
+            _translatorClientMock.Setup(y => y.GetTranslationAsync(It.IsAny<string>(), TranslationType.Yoda)).ReturnsAsync("Yoda Translated Text");
+            _translatorClientMock.Setup(y => y.GetTranslationAsync(It.IsAny<string>(), TranslationType.Shakespeare)).ReturnsAsync("Shakespeare Translated Text");
+            //Act
+            var result = await _pokemonService.GetPokemonAsync("test",true);
+            //Assert
+            result.IsLegendary.Should().BeTrue();
+            result.Habitat.Should().Be("rare");
+            result.Description.Should().Be("Yoda Translated Text");
+        }
+        [Fact]
+        public async Task ReturnsShakespeareTranslatedPokemon_WhenGetPokemonRequest_IsNotLegendaryAndRare()
+        {
+            //Arrange
+            var apiResponseObj = GetValidPokemonResponse();
+            _pokeApiClientMock.Setup(x => x.GetPokemonAsync("test")).ReturnsAsync(apiResponseObj);
+            _translatorClientMock.Setup(y => y.GetTranslationAsync(It.IsAny<string>(), TranslationType.Yoda)).ReturnsAsync("Yoda Translated Text");
+            _translatorClientMock.Setup(y => y.GetTranslationAsync(It.IsAny<string>(), TranslationType.Shakespeare)).ReturnsAsync("Shakespeare Translated Text");
+            //Act
+            var result = await _pokemonService.GetPokemonAsync("test", true);
+            //Assert
+            result.IsLegendary.Should().BeTrue();
+            result.Habitat.Should().Be("rare");
+            result.Description.Should().Be("Shakespeare Translated Text");
+        }
         private PokemonResponse GetValidPokemonResponse()
         {
             return new PokemonResponse()
