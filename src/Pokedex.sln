@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex.Api", "Pokedex\Poke
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex.Contract", "Pokedex.Contract\Pokedex.Contract.csproj", "{D9A1708D-0121-47D3-A054-BB4479997EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Api.UnitTests", "Pokedex.Api.UnitTests\Pokedex.Api.UnitTests.csproj", "{0A891C5D-67D2-4DE6-A842-6B6F36D7E21E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pokedex.Api.UnitTests", "Pokedex.Api.UnitTests\Pokedex.Api.UnitTests.csproj", "{0A891C5D-67D2-4DE6-A842-6B6F36D7E21E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B78BC7A9-BCB8-415F-ACF9-F52F949AE727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pokedex.Api.IntegrationTests", "Pokedex.Api.IntegrationTests\Pokedex.Api.IntegrationTests.csproj", "{44167FFE-1466-4AC0-BDA6-1B18B000C4BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +31,17 @@ Global
 		{0A891C5D-67D2-4DE6-A842-6B6F36D7E21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A891C5D-67D2-4DE6-A842-6B6F36D7E21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A891C5D-67D2-4DE6-A842-6B6F36D7E21E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44167FFE-1466-4AC0-BDA6-1B18B000C4BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44167FFE-1466-4AC0-BDA6-1B18B000C4BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44167FFE-1466-4AC0-BDA6-1B18B000C4BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44167FFE-1466-4AC0-BDA6-1B18B000C4BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0A891C5D-67D2-4DE6-A842-6B6F36D7E21E} = {B78BC7A9-BCB8-415F-ACF9-F52F949AE727}
+		{44167FFE-1466-4AC0-BDA6-1B18B000C4BC} = {B78BC7A9-BCB8-415F-ACF9-F52F949AE727}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D07D140-A92C-4F65-83B2-AAECDB2B7FA3}

@@ -8,3 +8,5 @@ src/Pokedex/bin/
 src/Pokedex/obj/
 src/Pokedex.Api.UnitTests/bin/
 src/Pokedex.Api.UnitTests/obj/
+src/Pokedex.Api.IntegrationTests/bin/
+src/Pokedex.Api.IntegrationTests/obj/
